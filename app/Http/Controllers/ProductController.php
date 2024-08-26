@@ -33,7 +33,7 @@ class ProductController extends Controller
                 
             }
         } catch (\Exception $ex){
-            Log::error($e);
+            Log::error($ex);
         }
 
         return redirect()->route('welcome');
