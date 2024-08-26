@@ -28,7 +28,7 @@ class ProductController extends Controller
             $fileUpload = FileUpload::doUpload($file, $uploadOptions);
 
             if ($fileUpload['success']) {
-                Excel::import(new ProductsImport(), $file );
+                Excel::import(new ProductsImport(), $file->store('temp') );
             } else {
                 
             }
