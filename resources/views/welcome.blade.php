@@ -196,7 +196,7 @@
                 var json_object = JSON.stringify(XL_row_object);
                 var exelData = JSON.parse(json_object);
                 while(exelData.length) {
-                    var exelDataSplice = exelData.splice(0, 1000);
+                    var exelDataSplice = exelData.splice(0, 100);
                     console.log(exelDataSplice);
                     jQuery.ajax({
                         method: "POST",
