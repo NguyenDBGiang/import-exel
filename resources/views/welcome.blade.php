@@ -80,6 +80,77 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div style="overflow-x: auto;">
+                            <table class="table-auto border-collapse border border-slate-400" style="width: max-content;">
+                                <thead>
+                                <tr>
+                                    <th>Tên tắt</th>
+                                    <th>Tên hàng</th>
+                                    <th>ID</th>
+                                    <th>ĐV Tinh1</th>
+                                    <th>ĐV Tính 2</th>
+                                    <th>Hệ số 1</th>
+                                    <th>ĐV Tính 3</th>
+                                    <th>Hệ số 2</th>
+                                    <th>Giá Nhập</th>
+                                    <th>Giá bán</th>
+                                    <th>Giá kê khai</th>
+                                    <th>Giá nhập giá vốn</th>
+                                    <th>Giá niêm yết</th>
+                                    <th>Giá vốn đích danh</th>
+                                    <th>Giá Hapu</th>
+                                    <th>Ngày cập nhật Giá Hapu</th>
+                                    <th>Giá bán tối thiểu</th>
+                                    <th>Giá bán tối đa</th>
+                                    <th>Số ĐKCL</th>
+                                    <th>Quy cách</th>
+                                    <th>Mã nơi để</th>
+                                    <th>Nơi để</th>
+                                    <th>Vị trí</th>
+                                    <th>Loại hàng</th>
+                                    <th>Phân loại</th>
+                                    <th>Nhóm hàng</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($products as $product)
+                                        <tr>
+                                            <td>{{ $product->product_short_name }}</td>
+                                            <td>{{ $product->product_name }}</td>
+                                            <td>{{ $product->product_id_name }}</td>
+                                            <td>{{ $product->calculation_unit_1 }}</td>
+                                            <td>{{ $product->calculation_unit_2 }}</td>
+                                            <td>{{ $product->unit_factor_1 }}</td>
+                                            <td>{{ $product->calculation_unit_3 }}</td>
+                                            <td>{{ $product->unit_factor_2 }}</td>
+                                            <td>{{ $product->product_import_price }}</td>
+                                            <td>{{ $product->product_sale_price }}</td>
+                                            <td>{{ $product->product_declared_price }}</td>
+                                            <td>{{ $product->product_specific_cost_import_price }}</td>
+                                            <td>{{ $product->product_list_price }}</td>
+                                            <td>{{ $product->product_specific_cost }}</td>
+                                            <td>{{ $product->product_hapu_price }}</td>
+                                            <td>{{ $product->hapu_updated_at }}</td>
+                                            <td>{{ $product->product_min_sale_price }}</td>
+                                            <td>{{ $product->product_max_sale_price }}</td>
+                                            <td>{{ $product->number_dkcl }}</td>
+                                            <td>{{ $product->specifications }}</td>
+                                            <td>{{ $product->place_code }}</td>
+                                            <td>{{ $product->place }}</td>
+                                            <td>{{ $product->location }}</td>
+                                            <td>{{ $product->product_type }}</td>
+                                            <td>{{ $product->classify }}</td>
+                                            <td>{{ $product->product_group }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                         
+                        <div>
+                            {{ $products->onEachSide(5)->links() }}
+                        </div>
                     </main>
 
                     <footer class="py-16 text-center text-sm text-black dark:text-white/70">
@@ -89,4 +160,20 @@
             </div>
         </div>
     </body>
+    <style>
+        th, td {
+            border: 1px black solid;
+        }
+        .pagination {
+            display: flex;
+        }
+        .page-item {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .page-item.active {
+            color: blue;
+        }
+        
+    </style>
 </html>
