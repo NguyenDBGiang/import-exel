@@ -10,3 +10,4 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::post('/product-import', [\App\Http\Controllers\ProductController::class, 'import'])->name('product.import');
+Route::post('/product-import-ary', [\App\Http\Controllers\ProductController::class, 'importAry'])->name('product.import-ary');

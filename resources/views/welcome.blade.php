@@ -72,7 +72,7 @@
 
                                     <form action="{{ route('product.import') }}" method="POST" id="frmImportExcel" enctype="multipart/form-data">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                        <input type="file" id="fileImport" name="fileImport" onchange="document.getElementById('frmImportExcel').submit();" style="display: none"/>
+                                        <input type="file" id="fileImport" name="fileImport" style="display: none"/>
                                         <button type="button" class="btn btn-warning btn-submit"
                                                 onclick="document.getElementById('fileImport').click()"
                                                 value="Select a File">Click here to import</button>
@@ -176,4 +176,60 @@
         }
         
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <script>
+      var ExcelToJSON = function() {
+    
+        this.parseExcel = function(file) {
+            var reader = new FileReader();
+    
+            reader.onload = function(e) {
+            var data = e.target.result;
+            var workbook = XLSX.read(data, {
+                type: 'binary'
+            });
+            workbook.SheetNames.forEach(function(sheetName) {
+                // Here is your object
+                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                var json_object = JSON.stringify(XL_row_object);
+                var exelData = JSON.parse(json_object);
+                while(exelData.length) {
+                    var exelDataSplice = exelData.splice(0, 1000);
+                    console.log(exelDataSplice);
+                    jQuery.ajax({
+                        method: "POST",
+                        url: "{{ route('product.import-ary') }}",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "data": exelDataSplice,
+                        }
+                    }).done(function() {
+                        
+                    });
+                }
+              
+                jQuery('#xlx_json').val(json_object);
+                })
+            };
+    
+            reader.onerror = function(ex) {
+                console.log(ex);
+            };
+        
+            reader.readAsBinaryString(file);
+        };
+      };
+    
+      function handleFileSelect(evt) {
+    
+        var files = evt.target.files; // FileList object
+        var xl2json = new ExcelToJSON();
+        xl2json.parseExcel(files[0]);
+      }
+    </script>
+    <script>
+        document.getElementById('fileImport').addEventListener('change', handleFileSelect, false);
+    </script>
 </html>
