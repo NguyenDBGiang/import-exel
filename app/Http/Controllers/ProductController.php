@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Helpers\FileUpload;
 use App\Imports\ProductsImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Log;
 
 class ProductController extends Controller
 {
@@ -32,7 +33,7 @@ class ProductController extends Controller
                 
             }
         } catch (\Exception $ex){
-            
+            Log::error($e);
         }
 
         return redirect()->route('welcome');
